@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>term</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body ng-app="termApp">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,300" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="js/main.js"></script>
+    
+
+    <div class="white-text" ng-controller="termCtrl">
+        <h1 class="code">term</h1>
+
+        <div ng-repeat="line in stdout">
+            <h3 class="code">{{line.text}}</h3>
+        </div>
+        <h3 class="code">{{prompt}} <input class="white-text code" ng-trim="false" ng-keyup="$event.keyCode == 13 && submit()" type="text" ng-model="input" autofocus></h3>
+    </div>
+
+    <link rel="stylesheet" href="css/main.css"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+html {
+    background-color: #1e1e1e;
+    padding: 0 2% 0 2%;
+}
+
+body {
+    background-color: #1e1e1e;
+}
+
+.white-text {
+    color: #ffffff;
+}
+
+.code {
+    font-family: 'Roboto Mono';
+    font-weight: 300;
+}
+
+input {
+    background-color: #1e1e1e;
+    border-color: #1e1e1e;
+    border-style: none;
+    font-size: 18.72px;
+    width: 90%;
+}
+
+input:focus {
+    outline: none;
+}
