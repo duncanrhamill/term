@@ -30,6 +30,7 @@ angular.module('termApp', [])
                     text: txt
                 })
             }
+            scrollToBottom();
         }
 
         $scope.submit = function() {
@@ -60,18 +61,23 @@ angular.module('termApp', [])
 
                 var args = list.slice(1);
                 commands[cmd].func(args, flags);
-            } else {
+            } else if ($scope.input.trim() != "") {
                 writeLine("Unrecognised command. Use 'help -l' to list all available commands.")
             }
             
             $scope.input = "";
+            scrollToBottom();
         }
 
         commands = {
             help: {
                 name: "help",
                 func: function(args, flags) {
-                    if (args.length == 0) {
+                    if (flags["l"]) {
+                        for (var cmd of Object.keys(commands)) {
+                            writeLine(cmd);
+                        }
+                    } else if (args.length == 0) {
                         writeLine("Welcome to term, a javascript terminal implamented with AngularJS!\nTo see a list of all commands, use 'help -l', or to see help on how to use the help command, use 'help help'.")
                     } else {
                         for (var arg of args) {
@@ -88,11 +94,7 @@ angular.module('termApp', [])
                         }
                     }
 
-                    if (flags["l"]) {
-                        for (var cmd of Object.keys(commands)) {
-                            writeLine(cmd);
-                        }
-                    }
+                    
                 },
                 flags: {
                     l: false,
@@ -100,6 +102,27 @@ angular.module('termApp', [])
                 },
                 help: "Shows help information for the given command.\nUsage: help [l f] (command)",
                 longhelp: "Shows help information for the given command.\nUsage: help [l f] (command)\n  l: list all commands\n  f: full help text\n  command: the command you want more information on (optional)"
+            },
+            clear: {
+                name: "clear",
+                func: function(args, flags) {
+                    $scope.stdout = [];
+                    lineNumber = 0;
+                },
+                help: "Clears the screen",
+                longhelp: "Clears the screen"
+            },
+            echo: {
+                name: "echo",
+                func: function(args, flags) {
+                    writeLine(args.join(' '));
+                },
+                help: "Prints all text following the command to the screen",
+                longhelp: "Prints all text following the command to the screen\n\\n doesn't work here."
             }
         };
     });
+
+function scrollToBottom() {
+    window.scrollTo(0,document.body.scrollHeight);
+}
